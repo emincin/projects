@@ -1,6 +1,8 @@
 ---
+AllowShortFunctionsOnASingleLine: None
 BreakBeforeBraces: Attach
 ColumnLimit: 80
+IndentCaseLabels: true
 IndentWidth: 4
 LineEnding: LF
 PointerAlignment: Left
