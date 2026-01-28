@@ -69,6 +69,11 @@ isize write_sn(const char* s, usize n) {
     return ret;
 }
 
+Size get_window_size(void) {
+    Size size = {0};
+    return size;
+}
+
 void test_raw_mode(void) {
     enable_raw_mode();
     while (true) {
