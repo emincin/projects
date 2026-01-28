@@ -1,8 +1,10 @@
 #include <termios.h>
 #include <unistd.h>
 
+#include <assert.h>
 #include <stdint.h>
 #include <stdio.h>
+#include <string.h>
 
 typedef intptr_t isize;
 typedef uintptr_t usize;
@@ -19,6 +21,16 @@ void disable_raw_mode(void) {
     struct termios io = {0};
     ret = tcgetattr(STDIN_FILENO, &io);
     ret = tcsetattr(STDIN_FILENO, TCSANOW, &io);
+}
+
+isize read_sn(char* s, usize n) {
+    ssize_t ret = read(STDIN_FILENO, s, n);
+    return ret;
+}
+
+isize write_sn(const char* s, usize n) {
+    ssize_t ret = write(STDOUT_FILENO, s, n);
+    return ret;
 }
 
 int main(int argc, char** argv) {
