@@ -10,6 +10,16 @@
 typedef intptr_t isize;
 typedef uintptr_t usize;
 
+bool is_control_char(char c) {
+    if (0 <= c && c <= 31) {
+        return true;
+    }
+    if (c == 127) {
+        return true;
+    }
+    return false;
+}
+
 void enable_raw_mode(void) {
     int ret = 0;
     struct termios io = {0};
