@@ -72,7 +72,7 @@ void test_raw_mode(void) {
         for (int i = 0; i < ret; i++) {
             char c = buf[i];
             if (is_printable_char(c)) {
-                printf("%c\n", c);
+                printf("%c(%d)\n", c, c);
             } else {
                 printf("%d\n", c);
             }
