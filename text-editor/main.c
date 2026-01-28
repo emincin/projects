@@ -2,6 +2,7 @@
 #include <unistd.h>
 
 #include <assert.h>
+#include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <string.h>
@@ -31,6 +32,16 @@ isize read_sn(char* s, usize n) {
 isize write_sn(const char* s, usize n) {
     ssize_t ret = write(STDOUT_FILENO, s, n);
     return ret;
+}
+
+void test_raw_mode(void) {
+    enable_raw_mode();
+    while (true) {
+        int ret = 0;
+        char buf[1024] = {0};
+        ret = (int)read_sn(buf, sizeof(buf));
+    }
+    disable_raw_mode();
 }
 
 int main(int argc, char** argv) {
