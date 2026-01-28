@@ -20,10 +20,19 @@ bool is_control_char(char c) {
     return false;
 }
 
+bool is_printable_char(char c) {
+    if (32 <= c && c <= 126) {
+        return true;
+    }
+    return false;
+}
+
 void enable_raw_mode(void) {
     int ret = 0;
     struct termios io = {0};
     ret = tcgetattr(STDIN_FILENO, &io);
+    io.c_lflag &= ~(ECHO);
+    io.c_lflag &= ~(ICANON);
     ret = tcsetattr(STDIN_FILENO, TCSANOW, &io);
 }
 
@@ -31,6 +40,8 @@ void disable_raw_mode(void) {
     int ret = 0;
     struct termios io = {0};
     ret = tcgetattr(STDIN_FILENO, &io);
+    io.c_lflag |= (ECHO);
+    io.c_lflag |= (ICANON);
     ret = tcsetattr(STDIN_FILENO, TCSANOW, &io);
 }
 
@@ -50,6 +61,14 @@ void test_raw_mode(void) {
         int ret = 0;
         char buf[1024] = {0};
         ret = (int)read_sn(buf, sizeof(buf));
+        for (int i = 0; i < ret; i++) {
+            char c = buf[i];
+            if (is_printable_char(c)) {
+                printf("%c\n", c);
+            } else {
+                printf("%d\n", c);
+            }
+        }
     }
     disable_raw_mode();
 }
