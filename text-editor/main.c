@@ -1,7 +1,11 @@
 #include <termios.h>
 #include <unistd.h>
 
+#include <stdint.h>
 #include <stdio.h>
+
+typedef intptr_t isize;
+typedef uintptr_t usize;
 
 void enable_raw_mode(void) {
     int ret = 0;
