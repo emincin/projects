@@ -44,8 +44,11 @@ void test_raw_mode(void) {
     disable_raw_mode();
 }
 
-int main(int argc, char** argv) {
+void test_text_editor(void) {
     enable_raw_mode();
     disable_raw_mode();
+}
+
+int main(int argc, char** argv) {
     return 0;
 }
