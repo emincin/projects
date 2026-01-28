@@ -1,3 +1,4 @@
+#include <sys/ioctl.h>
 #include <termios.h>
 #include <unistd.h>
 
@@ -9,6 +10,11 @@
 
 typedef intptr_t isize;
 typedef uintptr_t usize;
+
+typedef struct {
+    int width;
+    int height;
+} Size;
 
 bool is_control_char(char c) {
     if (0 <= c && c <= 31) {
