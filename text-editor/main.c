@@ -31,8 +31,12 @@ void enable_raw_mode(void) {
     int ret = 0;
     struct termios io = {0};
     ret = tcgetattr(STDIN_FILENO, &io);
+    io.c_iflag &= ~(ICRNL);
+    io.c_iflag &= ~(IXON);
     io.c_lflag &= ~(ECHO);
     io.c_lflag &= ~(ICANON);
+    io.c_lflag &= ~(IEXTEN);
+    io.c_lflag &= ~(ISIG);
     ret = tcsetattr(STDIN_FILENO, TCSANOW, &io);
 }
 
@@ -40,8 +44,12 @@ void disable_raw_mode(void) {
     int ret = 0;
     struct termios io = {0};
     ret = tcgetattr(STDIN_FILENO, &io);
+    io.c_iflag |= (ICRNL);
+    io.c_iflag |= (IXON);
     io.c_lflag |= (ECHO);
     io.c_lflag |= (ICANON);
+    io.c_lflag |= (IEXTEN);
+    io.c_lflag |= (ISIG);
     ret = tcsetattr(STDIN_FILENO, TCSANOW, &io);
 }
 
