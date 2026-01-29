@@ -33,6 +33,13 @@ bool is_printable_char(char c) {
     return false;
 }
 
+int get_width_of_char(char c) {
+    if (is_printable_char(c)) {
+        return 1;
+    }
+    return 0;
+}
+
 void enable_raw_mode(void) {
     int ret = 0;
     struct termios io = {0};
