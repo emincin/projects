@@ -69,12 +69,14 @@ void disable_raw_mode(void) {
 }
 
 isize read_sn(char* s, usize n) {
-    ssize_t ret = read(STDIN_FILENO, s, n);
+    isize ret = 0;
+    ret = read(STDIN_FILENO, s, n);
     return ret;
 }
 
 isize write_sn(const char* s, usize n) {
-    ssize_t ret = write(STDOUT_FILENO, s, n);
+    isize ret = 0;
+    ret = write(STDOUT_FILENO, s, n);
     return ret;
 }
 
