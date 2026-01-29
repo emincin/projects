@@ -114,6 +114,17 @@ void test_raw_mode(void) {
     disable_raw_mode();
 }
 
+void test_raw_mode_2(void) {
+    enable_alternate_buffer();
+    enable_raw_mode();
+    while (true) {
+        char buf[1024] = {0};
+        int ret = (int)read_sn(buf, sizeof(buf));
+    }
+    disable_raw_mode();
+    disable_alternate_buffer();
+}
+
 void test_text_editor(void) {
     enable_raw_mode();
     disable_raw_mode();
