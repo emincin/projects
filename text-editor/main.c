@@ -78,6 +78,11 @@ isize write_sn(const char* s, usize n) {
 
 Size get_window_size(void) {
     Size size = {0};
+    int ret = 0;
+    struct winsize ws = {0};
+    ret = ioctl(STDOUT_FILENO, TIOCGWINSZ, &ws);
+    size.width = ws.ws_col;
+    size.height = ws.ws_row;
     return size;
 }
 
