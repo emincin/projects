@@ -8,6 +8,8 @@
 #include <stdio.h>
 #include <string.h>
 
+#define SN(s) (s), (sizeof(s) - 1)
+
 typedef intptr_t isize;
 typedef uintptr_t usize;
 
@@ -84,6 +86,14 @@ Size get_window_size(void) {
     size.width = ws.ws_col;
     size.height = ws.ws_row;
     return size;
+}
+
+void enable_alternate_buffer(void) {
+    write_sn(SN("\033[?1049h"));
+}
+
+void disable_alternate_buffer(void) {
+    write_sn(SN("\033[?1049l"));
 }
 
 void test_raw_mode(void) {
