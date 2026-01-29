@@ -122,6 +122,15 @@ void test_raw_mode_2(void) {
     while (true) {
         char buf[1024] = {0};
         int ret = (int)read_sn(buf, sizeof(buf));
+        for (int i = 0; i < ret; i++) {
+            char c = buf[i];
+            if (is_printable_char(c)) {
+                printf("%c", c);
+            } else {
+                printf("(%d)", c);
+            }
+        }
+        printf("\n");
     }
     disable_raw_mode();
     disable_alternate_buffer();
