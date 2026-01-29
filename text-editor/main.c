@@ -98,6 +98,14 @@ void disable_alternate_buffer(void) {
     write_sn(SN("\033[?1049l"));
 }
 
+void enable_mouse_support(void) {
+    write_sn(SN("\033[?1000;1003;1006h"));
+}
+
+void disable_mouse_support(void) {
+    write_sn(SN("\033[?1000;1003;1006l"));
+}
+
 void test_raw_mode(void) {
     enable_raw_mode();
     while (true) {
@@ -119,6 +127,7 @@ void test_raw_mode(void) {
 void test_raw_mode_2(void) {
     enable_alternate_buffer();
     enable_raw_mode();
+    enable_mouse_support();
     while (true) {
         char buf[1024] = {0};
         int ret = (int)read_sn(buf, sizeof(buf));
@@ -132,6 +141,7 @@ void test_raw_mode_2(void) {
         }
         printf("\n");
     }
+    disable_mouse_support();
     disable_raw_mode();
     disable_alternate_buffer();
 }
