@@ -106,6 +106,14 @@ void disable_mouse_support(void) {
     write_sn(SN("\033[?1000;1003;1006l"));
 }
 
+void enable_cursor(void) {
+    write_sn(SN("\033[?25h"));
+}
+
+void disable_cursor(void) {
+    write_sn(SN("\033[?25l"));
+}
+
 void test_raw_mode(void) {
     enable_raw_mode();
     while (true) {
@@ -128,9 +136,13 @@ void test_raw_mode_2(void) {
     enable_alternate_buffer();
     enable_raw_mode();
     enable_mouse_support();
+    disable_cursor();
     while (true) {
         char buf[1024] = {0};
         int ret = (int)read_sn(buf, sizeof(buf));
+        if (ret == 1 && buf[0] == 27) {
+            break;
+        }
         for (int i = 0; i < ret; i++) {
             char c = buf[i];
             if (is_printable_char(c)) {
@@ -141,6 +153,7 @@ void test_raw_mode_2(void) {
         }
         printf("\n");
     }
+    enable_cursor();
     disable_mouse_support();
     disable_raw_mode();
     disable_alternate_buffer();
