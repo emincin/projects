@@ -90,6 +90,10 @@ Size get_window_size(void) {
     return size;
 }
 
+bool input_available(void) {
+    return false;
+}
+
 void enable_alternate_buffer(void) {
     write_sn(SN("\033[?1049h"));
 }
