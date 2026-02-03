@@ -91,7 +91,11 @@ Size get_window_size(void) {
 }
 
 bool input_available(void) {
-    return false;
+    bool available = false;
+    int bytes = 0;
+    int ret = ioctl(STDIN_FILENO, FIONREAD, &bytes);
+    available = bytes > 0;
+    return available;
 }
 
 void enable_alternate_buffer(void) {
