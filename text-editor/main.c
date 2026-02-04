@@ -122,6 +122,14 @@ void disable_cursor(void) {
     write_sn(SN("\033[?25l"));
 }
 
+void set_cursor_pos(int x, int y) {
+    char buf[32] = {0};
+    int ret = snprintf(buf, sizeof(buf), "\033[%d;%dH", y + 1, x + 1);
+    if (ret > 0) {
+        write_sn(buf, ret);
+    }
+}
+
 void test_raw_mode(void) {
     enable_raw_mode();
     while (true) {
