@@ -143,6 +143,16 @@ void set_cursor_pos(int x, int y) {
     }
 }
 
+i64 get_file_size(const char* path) {
+    i64 file_size = -1;
+    struct stat info = {0};
+    int ret = stat(path, &info);
+    if (ret == 0) {
+        file_size = info.st_size;
+    }
+    return file_size;
+}
+
 void test_raw_mode(void) {
     enable_raw_mode();
     while (true) {
