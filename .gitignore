@@ -3,3 +3,7 @@ a.out
 a
 main
 *.dSYM
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
