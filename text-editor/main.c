@@ -36,6 +36,10 @@ typedef struct StringView {
     const char* data;
 } StringView;
 
+typedef struct InputEvent {
+    int type;
+} InputEvent;
+
 StringView make_sv(const char* s, usize n) {
     return (StringView){.data = s, .size = n};
 }
@@ -150,6 +154,11 @@ void set_cursor_pos(int x, int y) {
     if (ret > 0) {
         write_sn(buf, ret);
     }
+}
+
+InputEvent parse_input_ansi(const char* s, usize n, usize* pos) {
+    InputEvent event = {0};
+    return event;
 }
 
 i64 get_file_size(const char* path) {
