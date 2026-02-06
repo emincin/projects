@@ -26,10 +26,15 @@ typedef uint64_t u64;
 typedef intptr_t isize;
 typedef uintptr_t usize;
 
-typedef struct {
+typedef struct Size {
     int width;
     int height;
 } Size;
+
+typedef struct StringView {
+    usize size;
+    const char* data;
+} StringView;
 
 bool is_control_char(char c) {
     if (0 <= c && c <= 31) {
