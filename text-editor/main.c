@@ -158,6 +158,11 @@ void set_cursor_pos(int x, int y) {
 
 InputEvent parse_input_ansi(const char* s, usize n, usize* pos) {
     InputEvent event = {0};
+    usize index = 0;
+    while (index < n) {
+        char c = s[index];
+        index++;
+    }
     return event;
 }
 
