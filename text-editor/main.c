@@ -161,6 +161,8 @@ InputEvent parse_input_ansi(const char* s, usize n, usize* pos) {
     usize index = 0;
     while (index < n) {
         char c = s[index];
+        if (c == 27) {
+        }
         index++;
     }
     return event;
@@ -222,8 +224,16 @@ void test_raw_mode_2(void) {
 }
 
 void test_text_editor(void) {
+    enable_alternate_buffer();
     enable_raw_mode();
+    enable_mouse_support();
+    disable_cursor();
+    while (true) {
+    }
+    enable_cursor();
+    disable_mouse_support();
     disable_raw_mode();
+    disable_alternate_buffer();
 }
 
 int main(int argc, char** argv) {
