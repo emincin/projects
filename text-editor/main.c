@@ -36,6 +36,10 @@ typedef struct StringView {
     const char* data;
 } StringView;
 
+StringView make_sv(const char* s, usize n) {
+    return (StringView){.data = s, .size = n};
+}
+
 bool is_control_char(char c) {
     if (0 <= c && c <= 31) {
         return true;
