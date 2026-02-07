@@ -170,6 +170,7 @@ InputEvent parse_input_ansi(const char* s, usize n, usize* pos) {
     *pos = 0;
     usize index = 0;
     bool process_mouse = true;
+    bool process_arrow_key = true;
     while (index < n) {
         char c = s[index];
         if (c == 27) {
@@ -179,6 +180,8 @@ InputEvent parse_input_ansi(const char* s, usize n, usize* pos) {
                     process_mouse = false;
                     continue;
                 }
+            }
+            if (process_arrow_key) {
             }
         }
         index++;
