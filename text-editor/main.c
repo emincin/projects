@@ -169,9 +169,17 @@ InputEvent parse_input_ansi(const char* s, usize n, usize* pos) {
     InputEvent event = {0};
     *pos = 0;
     usize index = 0;
+    bool process_mouse = true;
     while (index < n) {
         char c = s[index];
         if (c == 27) {
+            if (process_mouse) {
+                usize prefix_pos = find_str(s + index, "\033[<");
+                if (prefix_pos == -1) {
+                    process_mouse = false;
+                    continue;
+                }
+            }
         }
         index++;
     }
