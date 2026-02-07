@@ -158,6 +158,7 @@ void set_cursor_pos(int x, int y) {
 
 InputEvent parse_input_ansi(const char* s, usize n, usize* pos) {
     InputEvent event = {0};
+    *pos = 0;
     usize index = 0;
     while (index < n) {
         char c = s[index];
@@ -176,6 +177,10 @@ i64 get_file_size(const char* path) {
         file_size = info.st_size;
     }
     return file_size;
+}
+
+void wait_ms(u32 ms) {
+    usleep(ms * 1000);
 }
 
 void test_raw_mode(void) {
@@ -229,6 +234,11 @@ void test_text_editor(void) {
     enable_mouse_support();
     disable_cursor();
     while (true) {
+        if (input_available()) {
+            char buf[1024] = {0};
+            isize ret = read_sn(buf, sizeof(buf));
+        }
+        wait_ms(100);
     }
     enable_cursor();
     disable_mouse_support();
