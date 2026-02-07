@@ -68,6 +68,15 @@ int get_width_of_char(char c) {
     return 0;
 }
 
+usize find_str(const char* src, const char* sub) {
+    usize pos = -1;
+    char* ptr = strstr(src, sub);
+    if (ptr != NULL) {
+        pos = ptr - src;
+    }
+    return pos;
+}
+
 void enable_raw_mode(void) {
     int ret = 0;
     struct termios io = {0};
