@@ -237,6 +237,16 @@ void test_text_editor(void) {
         if (input_available()) {
             char buf[1024] = {0};
             isize ret = read_sn(buf, sizeof(buf));
+            if (ret < 0) {
+                break;
+            }
+            usize pos = 0;
+            while (true) {
+                InputEvent event = parse_input_ansi(buf, ret, &pos);
+                if (pos == 0) {
+                    break;
+                }
+            }
         }
         wait_ms(100);
     }
