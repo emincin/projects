@@ -70,6 +70,16 @@ int get_width_of_char(char c) {
     return 0;
 }
 
+usize str_find(const char* src, const char* s, usize pos) {
+    usize ret = -1;
+    return ret;
+}
+
+usize str_find_first_of(const char* src, const char* s, usize pos) {
+    usize ret = -1;
+    return ret;
+}
+
 usize find_str(const char* src, const char* sub) {
     usize pos = -1;
     char* ptr = strstr(src, sub);
