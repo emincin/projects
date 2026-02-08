@@ -9,6 +9,8 @@
 #include <stdio.h>
 #include <string.h>
 
+#define SLEN(s) (sizeof(s) - 1)
+
 #define SN(s) (s), (sizeof(s) - 1)
 
 typedef int8_t i8;
@@ -71,6 +73,15 @@ int get_width_of_char(char c) {
 usize find_str(const char* src, const char* sub) {
     usize pos = -1;
     char* ptr = strstr(src, sub);
+    if (ptr != NULL) {
+        pos = ptr - src;
+    }
+    return pos;
+}
+
+usize find_first_of(const char* src, const char* charset) {
+    usize pos = -1;
+    char* ptr = strpbrk(src, charset);
     if (ptr != NULL) {
         pos = ptr - src;
     }
@@ -177,6 +188,12 @@ InputEvent parse_input_ansi(const char* s, usize n, usize* pos) {
             if (process_mouse) {
                 usize prefix_pos = find_str(s + index, "\033[<");
                 if (prefix_pos == -1) {
+                    process_mouse = false;
+                    continue;
+                }
+                usize content_pos = prefix_pos + SLEN("\033[<");
+                usize suffix_pos = find_first_of(s + content_pos, "Mm");
+                if (suffix_pos == -1) {
                     process_mouse = false;
                     continue;
                 }
