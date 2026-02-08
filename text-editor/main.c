@@ -88,24 +88,6 @@ usize str_find_first_of(const char* src, const char* s, usize pos) {
     return ret;
 }
 
-usize find_str(const char* src, const char* sub) {
-    usize pos = -1;
-    char* ptr = strstr(src, sub);
-    if (ptr != NULL) {
-        pos = ptr - src;
-    }
-    return pos;
-}
-
-usize find_first_of(const char* src, const char* charset) {
-    usize pos = -1;
-    char* ptr = strpbrk(src, charset);
-    if (ptr != NULL) {
-        pos = ptr - src;
-    }
-    return pos;
-}
-
 void enable_raw_mode(void) {
     int ret = 0;
     struct termios io = {0};
@@ -204,13 +186,13 @@ InputEvent parse_input_ansi(const char* s, usize n, usize* pos) {
         char c = s[index];
         if (c == 27) {
             if (process_mouse) {
-                usize prefix_pos = find_str(s + index, "\033[<");
+                usize prefix_pos = str_find(s, "\033[<", index);
                 if (prefix_pos == -1) {
                     process_mouse = false;
                     continue;
                 }
                 usize content_pos = prefix_pos + SLEN("\033[<");
-                usize suffix_pos = find_first_of(s + content_pos, "Mm");
+                usize suffix_pos = str_find_first_of(s, "Mm", content_pos);
                 if (suffix_pos == -1) {
                     process_mouse = false;
                     continue;
